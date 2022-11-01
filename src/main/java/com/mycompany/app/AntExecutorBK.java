@@ -8,7 +8,7 @@ import org.apache.tools.ant.DefaultLogger;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.ProjectHelper;
 
-public class AntExecutor {
+public class AntExecutorBK {
     /**
      * To execute the default target specified in the Ant build.xml file
      *
@@ -31,15 +31,14 @@ public class AntExecutor {
         DefaultLogger consoleLogger = getConsoleLogger();
 
         // Prepare Ant project
-        String path = "cassandra";
         Project project = new Project();
-        File baseDir = new File(path);
-        File buildFile = new File(baseDir, "build.xml");
-        project.setUserProperty("ant.file", buildFile.getAbsolutePath());
-
-        project.setUserProperty("test.name", "org.apache.cassandra.hints.HintsCatalogTest");
-        project.setUserProperty("test.methods", "deleteHintsTest");
-        project.setUserProperty("use.jdk11", "true");
+        File buildFile = new File(buildFilePath);
+        File baseDir = new File("./cassandra");
+        System.out.println(baseDir.getCanonicalPath());
+        // project.setUserProperty("ant.file", buildFile.getAbsolutePath());
+        // project.setUserProperty("test.name", "org.apache.cassandra.hints.HintsCatalogTest");
+        // project.setUserProperty("test.methods", "deleteHintsTest");
+        // project.setUserProperty("use.jdk11", "true");
 
         project.addBuildListener(consoleLogger);
 
@@ -47,7 +46,6 @@ public class AntExecutor {
         try {
             project.fireBuildStarted();
             project.init();
-
             ProjectHelper projectHelper = ProjectHelper.getProjectHelper();
             project.addReference("ant.projectHelper", projectHelper);
             projectHelper.parse(project, buildFile);
@@ -78,6 +76,6 @@ public class AntExecutor {
 
     public static void main(String[] args) throws IOException {
         // executeAntTask("./cassandra/build.xml", "testsome");
-        executeAntTask("build.xml", "testsome");
+        executeAntTask("build.xml", "run-ant");
     }
 }

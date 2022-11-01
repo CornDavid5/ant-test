@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project basedir="." default="run-ant" name="ant-test">
+    <target name="run-ant">
+        <ant antfile="./cassandra/build.xml" target="testsome" inheritAll="false" useNativeBaseDir="true">
+            <property name="test.name" value="org.apache.cassandra.hints.HintsCatalogTest"/>
+            <property name="test.methods" value="deleteHintsTest"/>
+            <property name="use.jdk11" value="true"/>
+        </ant>
+    </target>
+</project>
